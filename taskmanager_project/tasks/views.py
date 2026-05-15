@@ -24,7 +24,7 @@ def register_view(request):
     else:
         form = UserCreationForm()
     
-    return render(request, 'tasks/register.html', {'form': form})
+    return render(request, 'task/register.html', {'form': form})  # Changed from 'tasks/' to 'task/'
 
 def login_view(request):
     """User login view"""
@@ -43,15 +43,13 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     
-    return render(request, 'tasks/login.html', {'form': form})
+    return render(request, 'task/login.html', {'form': form})  # Changed from 'tasks/' to 'task/'
 
 def logout_view(request):
     """User logout view"""
     logout(request)
     messages.info(request, 'You have been logged out.')
     return redirect('login')
-
-
 
 @login_required
 def task_list(request):
@@ -94,7 +92,7 @@ def task_list(request):
         'category_filter': category_filter,
         'search_query': search_query,
     }
-    return render(request, 'tasks/task_list.html', context)
+    return render(request, 'task/task_list.html', context)  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def task_create(request):
@@ -110,7 +108,7 @@ def task_create(request):
     else:
         form = TaskForm(user=request.user)
     
-    return render(request, 'tasks/task_form.html', {'form': form, 'title': 'Create Task'})
+    return render(request, 'task/task_form.html', {'form': form, 'title': 'Create Task'})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def task_update(request, pk):
@@ -126,7 +124,7 @@ def task_update(request, pk):
     else:
         form = TaskForm(instance=task, user=request.user)
     
-    return render(request, 'tasks/task_form.html', {'form': form, 'title': 'Edit Task', 'task': task})
+    return render(request, 'task/task_form.html', {'form': form, 'title': 'Edit Task', 'task': task})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def task_delete(request, pk):
@@ -138,13 +136,13 @@ def task_delete(request, pk):
         messages.success(request, 'Task deleted successfully!')
         return redirect('task_list')
     
-    return render(request, 'tasks/task_confirm_delete.html', {'task': task})
+    return render(request, 'task/task_confirm_delete.html', {'task': task})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def category_list(request):
     """Display all categories for the user"""
     categories = Category.objects.filter(created_by=request.user)
-    return render(request, 'tasks/category_list.html', {'categories': categories})
+    return render(request, 'task/category_list.html', {'categories': categories})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def category_create(request):
@@ -160,7 +158,7 @@ def category_create(request):
     else:
         form = CategoryForm()
     
-    return render(request, 'tasks/category_form.html', {'form': form, 'title': 'Create Category'})
+    return render(request, 'task/category_form.html', {'form': form, 'title': 'Create Category'})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def category_update(request, pk):
@@ -176,7 +174,7 @@ def category_update(request, pk):
     else:
         form = CategoryForm(instance=category)
     
-    return render(request, 'tasks/category_form.html', {'form': form, 'title': 'Edit Category', 'category': category})
+    return render(request, 'task/category_form.html', {'form': form, 'title': 'Edit Category', 'category': category})  # Changed from 'tasks/' to 'task/'
 
 @login_required
 def category_delete(request, pk):
@@ -188,5 +186,4 @@ def category_delete(request, pk):
         messages.success(request, 'Category deleted successfully!')
         return redirect('category_list')
     
-    return render(request, 'tasks/category_confirm_delete.html', {'category': category})
-
+    return render(request, 'task/category_confirm_delete.html', {'category': category})  # Changed from 'tasks/' to 'task/'

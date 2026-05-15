@@ -1,0 +1,40 @@
+{% extends 'task/base.html' %}
+
+{% block title %}Delete Category{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Delete Category</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete the category: <strong>"{{ category.name }}"</strong>?</p>
+                
+                {% if category.tasks.count > 0 %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        This category has {{ category.tasks.count }} task(s). 
+                        They will not be deleted, but their category will be set to null.
+                    </div>
+                {% endif %}
+                
+                <p class="text-danger">This action cannot be undone!</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'category_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Confirm Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
